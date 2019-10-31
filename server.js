@@ -17,6 +17,7 @@ app.get('/', (req,res) => {
     };
 
     res.setHeader('Content-Type', 'application/json');
+    res.setHeader('Access-Control-Allow-Origin', '*')
     var x = req.query.x;
     var y = req.query.y;
     var answer = sub.subtract(x,y);
