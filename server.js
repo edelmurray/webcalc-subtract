@@ -9,6 +9,8 @@ var sub = require('./subtract');
 
 const app = express();
 app.get('/', (req,res) => {
+    var x = 0;
+    var y = 0;
 
     var output = {
         'error': false,
@@ -17,15 +19,26 @@ app.get('/', (req,res) => {
     };
 
     res.setHeader('Content-Type', 'application/json');
-    res.setHeader('Access-Control-Allow-Origin', '*')
-    var x = req.query.x;
-    var y = req.query.y;
+    res.setHeader('Access-Control-Allow-Origin', '*');
+
+    try {
+        x = req.query.x
+        y = req.query.y;
+    } catch (error) {
+        console.error(error)
+        output.error = true;
+    }
+
     var answer = sub.subtract(x,y);
 
     output.string = x + '-' + y + '=' + answer;
     output.answer = answer;
-
-    res.end(JSON.stringify(output));
+    if (output.error==false) {
+        res.status(200).end(JSON.stringify(output));
+    } else {
+        res.status(400).end(JSON.stringify(output));
+    }
+    
 });
 
 app.listen(PORT, HOST);
