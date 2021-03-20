@@ -21,12 +21,12 @@ app.get('/', (req,res) => {
     res.setHeader('Content-Type', 'application/json');
     res.setHeader('Access-Control-Allow-Origin', '*');
 
-    try {
-        x = req.query.x
-        y = req.query.y;
-    } catch (error) {
-        console.error(error)
+    if(!req.query.x || !req.query.y){
         output.error = true;
+    }
+    else {
+        x = req.query.x;
+        y = req.query.y;
     }
 
     var answer = sub.subtract(x,y);
