@@ -3,6 +3,7 @@ let chai = require('chai');
 let chaiHttp = require('chai-http');
 let server = require('../server');
 let should = chai.should();
+var expect  = require('chai').expect;
 
 chai.use(chaiHttp);
 
@@ -15,6 +16,18 @@ chai.request(server)
     done();
 });
 });
+
+
+it('should return 200, answer = 86', (done) => {
+  chai.request(server)
+    .get('/?x=88&y=2')
+    .end((err, res) => {
+      res.should.have.status(200);
+      expect(res).to.be.json;
+      res.body.should.have.property('answer').eql(86);
+      done();
+  });
+  });
 
 it('should return 400 - incorrect y params', (done) => {
     chai.request(server)
