@@ -7,7 +7,6 @@ var expect  = require('chai').expect;
 
 chai.use(chaiHttp);
 
-
 it('should return 200', (done) => {
 chai.request(server)
   .get('/?x=4&y=2')
@@ -38,7 +37,7 @@ it('should return 400 - incorrect y params', (done) => {
     });
     });
 
-    it('should return 400 - incorrect x params', (done) => {
+it('should return 400 - incorrect x params', (done) => {
         chai.request(server)
           .get('/?y=4')
           .end((err, res) => {
@@ -47,7 +46,7 @@ it('should return 400 - incorrect y params', (done) => {
         });
         });
 
-        it('should return 400 - incorrect str params', (done) => {
+it('should return 400 - incorrect str params', (done) => {
             chai.request(server)
               .get('/?x=j&y=p')
               .end((err, res) => {
@@ -56,7 +55,7 @@ it('should return 400 - incorrect y params', (done) => {
             });
             });       
 
-            it('should return 400 - no query', (done) => {
+it('should return 400 - no query', (done) => {
                 chai.request(server)
                   .get('/')
                   .end((err, res) => {
